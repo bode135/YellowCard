@@ -1,1 +1,8 @@
-a
+1.进入文件夹目录（可用cd命令，也可以直接右击文件夹选择git Bash Here）
+2.配置用户名，邮箱
+3.初始化（输入git init）
+4.关联仓库（git remote add origin +SSH地址）
+假若之前已经连接，想改可以用 git remote rm origin删除，删除之后在重新连接（git remote add +SSH）。
+5.上传（git push -u origin master）
+如仓库里有文件夹里没有的文件需在git push前先git pull。
+————————————————
