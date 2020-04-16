@@ -1,3 +1,11 @@
+'''
+当时基于这份源代码开发其它功能,
+所以有很多冗余没有去除,
+秒切黄牌在最后实现.
+建议从后往前看
+
+                        by bode
+'''
 if(1):
     from time import time
     from time import sleep
@@ -209,8 +217,6 @@ if(1):
         else:
             print(0)
 
-    # /成就徽章
-    # 锁定人物坐标功能
 
     if (1):
         def stop_0(ch='1'):
@@ -432,6 +438,8 @@ if(1):
     1
 #
 
+########################## 核心 ######################################
+
 if(1):
     #findpic('a_0',re_mouse=0)
 
@@ -486,6 +494,7 @@ if(1):
         #     ms.click_r(0.01)
         #     print('---')
 
+        # 代码核心: 如果有pic,就按一下
         if(have_pic('a_0',re_mouse=0) or have_pic('a_4',re_mouse=0) or have_pic('a_7',re_mouse=0)):
 
             #sleep(delay_click)
