@@ -173,7 +173,7 @@ if(1):
     xy = (825, 971)
     original_color = (197, 231, 0)
 
-    #[3921380, ]
+    # 此处是个坑,黄色是一个范围,不是一个单个的数值.若设置为单个数值很容易截图的时候捕捉不到,调试了很久才排坑.
     yellow = [ 2023913, 1827305, 2023912, 2154985, 1172715, 910826, 58859]
     #yellow = [58859,59375,9375,910830, 1304045, 2089707 ,1893356 ,2089708 ,4117732 ,4444385 ,8709357]
     ##   59375  2105333  2765555  3029746  3623919    3492080   3491569  3623664  5076199  5340132  9348079  11252473 11881851
@@ -185,12 +185,9 @@ if(1):
 
     #hdc_yellow = 2105333
     hdc_blue = 14119544
-    #Str = 'dm-python'
     Str = 'League of Legends (TM) Client'
-    #Str = 'Chrome_RenderWidgetHostHWND'
-    #class_name = 'RiotWindowClass'
-
     handle = win32gui.FindWindow(None, Str)
+    
     while(1):
         try:
             handle = win32gui.FindWindow(None, Str)
@@ -264,19 +261,16 @@ break0 = break1 = True;i = 0
 while(1):
     t0 = time.time()
 
-    # if(time.time() - tt0.last_run > 1):
-    #     stop_0('n')ii
-    #     tt0.now()
-
     sleep(0.01)
     i+=1
     if(i % 1000 == 0):
         print(i)
-    # if(i%30 == 0 and dm.GetKeyState(87) == 0):
-    #     if (stop('H')):
-    #         break
+    
+    # 长按p键退出程序
     if(stop_0('p')):
         break
+     
+    #查找窗口句柄
     if(i%30 == 0):
         try:
             h1 = win32gui.FindWindow(None, Str)
@@ -289,51 +283,35 @@ while(1):
         except:
             print('End !!!')
 
-    # if(kk.state('0')and kk.state(18)):
-    #     break1 = not break1
-    #     if(break1):
-    #         print('   Stop!')
-    #     sleep(0.5)
-
-
+    # 若已经按下了'w',则不继续后面的操作,使得人工按下'w'时能正常抽牌
     if(dm.GetKeyState(ord('W'))):
         break0 = True
+    # 若按下了'e'键则继续后面的自动选取黄牌操作.
     if (i%10 == 0 and stop('E') == True and dm.GetKeyState(18) == 0 and dm.GetKeyState(17) == 0):
         break0 = False
-        #key = not key
-        press_char('W',t = 0.01)
-        sleep(0.01)
+        
+        press_char('W',t = 0.01)    # 按了E后自动按W开始选牌
+        sleep(0.01) 
 
-        hdc_color = win32gui.GetPixel(dc, xy[0], xy[1])
-        if(hdc_color in yellow):
+        hdc_color = win32gui.GetPixel(dc, xy[0], xy[1]) # 及时获取当前颜色,避免程序都来不及判断.(仅作为保险操作)
+        if(hdc_color in yellow):    # 若为黄色,则再次按下w键
             press_char('W',t = 0.01)
 
         print(break0)
     if(break0 == True):
         continue
 
-    # for i in range(50):
-    #     sleep(0.1)
-    #
-    #     print(dm.GetKeyState(ord('E')))
-    #break
-
-    #cl.append(get_color(xy[0],xy[1]))
-    #print(is_change(xy, original_color))
-    #if(not is_change(xy, original_color)):
-
+    # ----------截止到此都是按键逻辑判断等前期工作,后面部分为颜色判断
+        
+        
+    # 获取xy位置处的颜色
     hdc_color = win32gui.GetPixel(dc, xy[0], xy[1])
 
-    print('-------', break0,'   ',hdc_color)
-    # if (hdc_color == hdc_yellow):
-    #     #print('     Yellow card!   ',hdc_color)
-    #     press_char('W')
-    #     t1 = time.time() - t0
-    #     print('cost_time:  ',t1)
-    #     break0 = not break0
-    #     sleep(0.2)
+    print('-------', break0, '   ', hdc_color)
+
+    # 判定hdc_color为是否处于黄色范围
     if( hdc_color in yellow):
-        #print('     Yellow card!   ',hdc_color)
+        #print('     Yellow card!   ', hdc_color)
         press_char('W',t = 0.1)
         t1 = time.time() - t0
         print('cost_time:  ',t1)
@@ -343,27 +321,3 @@ while(1):
         #print('not Yellow')
         pass
     1
-
-
-#if(0):
-# import pandas as pd
-#
-# sleep(2)
-# press_char('w',0.1)
-# tt = t0_t1();ss = []
-# while(tt.now()<5):
-#     if(stop('p')):
-#         break
-#     sleep(0.02)
-#     hdc_color = win32gui.GetPixel(dc, xy[0], xy[1])
-#     ss.append(hdc_color)
-#
-#     print(hdc_color,int(tt.now()))
-# print(pd.unique(ss).tolist())
-# win32gui.GetPixel(dc, xy[0], xy[1])
-#ss = [5,5,5,51,1,1,2,3,4,4]
-#[4378847, 3921380, 2023913, 1827305, 2023912,
-# 2154985, 1172715, 910826, 58859, 12802912, 2171127]
-
-#[4378847, 3921380, 2023913, 1827305, 2023912,
-# 2154985, 1172715, 910826, 58859, 12802912, 2171127]
